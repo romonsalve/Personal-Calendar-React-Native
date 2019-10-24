@@ -1,89 +1,49 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet, Text, View, Image,
-} from 'react-native';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet, View } from 'react-native';
 
 import NavigationMenuItem from './NavigationMenuItem';
-
-const reservedIcon = require('../assets/icon.png');
-const confirmedIcon = require('../assets/icon.png');
-const asistsIcon = require('../assets/icon.png');
-const noAsistsIcon = require('../assets/icon.png');
-const waitingIcon = require('../assets/icon.png');
-const pendingIcon = require('../assets/icon.png');
-
+import * as Status from '../constants/status';
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     flexDirection: 'row',
+    flex: 1,
   },
 });
 
-export default class NavigationMenu extends Component {
+const menuOrder = [
+  Status.RESERVED,
+  Status.CONFIRMED,
+  Status.ASSISTED,
+  Status.DIDNT_ASSIST,
+  Status.PENDING,
+  Status.WAITING,
+];
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedId: 'reserved'
-    };
-    this.buttonHandler = this.buttonHandler.bind(this);
-  }
 
-  buttonHandler(selectedId) {
-    this.setState({selectedId});
-    console.log(selectedId);
-  }
+export default function NavigationMenu({ selectedStatus, handleItemPress }) {
+  const menuItems = menuOrder.map((status) => (
+    <NavigationMenuItem
+      text={Status.STATUS_TEXT[status]}
+      status={status}
+      icon={Status.STATUS_ICON[status]}
+      selectedStatus={selectedStatus}
+      handlePress={handleItemPress}
+      key={status}
+    />
+  ));
 
-  render() {
-    const { style } = this.props;
-    const { selectedId } = this.state;
-    const container = { ...styles.container, ...style };
-    return (
-      <View style={container}>
-        <NavigationMenuItem
-          text="reserved"
-          imageSource={reservedIcon}
-          id="reserved"
-          selectedId={selectedId}
-          buttonHandler={this.buttonHandler}
-        />
-        <NavigationMenuItem
-          text="confirmed"
-          imageSource={confirmedIcon}
-          id="confirmed"
-          selectedId={selectedId}
-          buttonHandler={this.buttonHandler}
-        />
-        <NavigationMenuItem
-          text="asists"
-          imageSource={asistsIcon}
-          id="asists"
-          selectedId={selectedId}
-          buttonHandler={this.buttonHandler}
-        />
-        <NavigationMenuItem
-          text="noAsists"
-          imageSource={noAsistsIcon}
-          id="noAsists"
-          selectedId={selectedId}
-          buttonHandler={this.buttonHandler}
-        />
-        <NavigationMenuItem
-          text="waiting"
-          imageSource={waitingIcon}
-          id="waiting"
-          selectedId={selectedId}
-          buttonHandler={this.buttonHandler}
-        />
-        <NavigationMenuItem
-          text="pending"
-          imageSource={pendingIcon}
-          id="pending"
-          selectedId={selectedId}
-          buttonHandler={this.buttonHandler}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      {menuItems}
+    </View>
+  );
 }
+
+NavigationMenu.propTypes = {
+  selectedStatus: PropTypes.number.isRequired,
+  handleItemPress: PropTypes.func.isRequired,
+
+};

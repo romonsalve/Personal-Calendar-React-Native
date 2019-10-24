@@ -1,8 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import NavigationMenu from './app/components/NavigationMenu';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import { Spacing } from './app/styles';
+import calendarApp from './app/reducers/reducers';
+import NavigationMenuContainer from './app/components/NavigationMenuContainer';
 
+const store = createStore(calendarApp);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -20,13 +24,14 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default function App() {
   return (
-    <View style={styles.container}>
-      <View style={styles.topMenu} />
-      <View style={styles.body} />
-      <NavigationMenu style={styles.navigationMenu} />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <View style={styles.topMenu} />
+        <View style={styles.body} />
+        <NavigationMenuContainer />
+      </View>
+    </Provider>
   );
 }
