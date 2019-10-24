@@ -1,19 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
+import { StyleSheet, View } from 'react-native';
+import NavigationMenu from './app/components/NavigationMenu';
+import { Spacing } from './app/styles';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: Spacing.base
+  },
+  header: {
+    flex: 1,
+  },
+  body: {
+    flex: 8,
+  },
+  navigationMenu: {
+    flex: 1,
   },
 });
+
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <View style={styles.topMenu} />
+      <View style={styles.body} />
+      <NavigationMenu style={styles.navigationMenu} />
+    </View>
+  );
+}
