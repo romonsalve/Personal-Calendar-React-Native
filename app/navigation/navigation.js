@@ -1,6 +1,5 @@
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 import ReservedBookingScreen from '../views/ReservedBookingScreen';
 import ConfirmedBookingScreen from '../views/ConfirmedBookingScreen';
@@ -13,20 +12,48 @@ import WaitingBookingScreen from '../views/WaitingBookingScreen';
 import * as Status from '../constants/status';
 
 const routeConfig = {
-  Reserved: ReservedBookingScreen,
-  Confirmed: ConfirmedBookingScreen,
-  Attended: AttendedBookingScreen,
-  Skipped: SkippedBookingScreen,
-  Pending: PendingBookingScreen,
-  Waiting: WaitingBookingScreen,
+  Reserved: {
+    screen: ReservedBookingScreen,
+    navigationOptions: {
+      tabBarLabel: Status.STATUS_TEXT[Status.RESERVED],
+    },
+  },
+  Confirmed: {
+    screen: ConfirmedBookingScreen,
+    navigationOptions: {
+      tabBarLabel: Status.STATUS_TEXT[Status.CONFIRMED],
+    },
+  },
+  Attended: {
+    screen: AttendedBookingScreen,
+    navigationOptions: {
+      tabBarLabel: Status.STATUS_TEXT[Status.ATTENDED],
+    },
+  },
+  Skipped: {
+    screen: SkippedBookingScreen,
+    navigationOptions: {
+      tabBarLabel: Status.STATUS_TEXT[Status.SKIPPED],
+    },
+  },
+  Pending: {
+    screen: PendingBookingScreen,
+    navigationOptions: {
+      tabBarLabel: Status.STATUS_TEXT[Status.PENDING],
+    },
+  },
+  Waiting: {
+    screen: WaitingBookingScreen,
+    navigationOptions: {
+      tabBarLabel: Status.STATUS_TEXT[Status.WAITING],
+    },
+  },
 };
 
 const tabNavigatorConfig = {
-  defaultNavigationOptions: ({ navigation }) => ({
-    tabBarLabel: Status.STATUS_TEXT[Status[navigation.state.routeName.toUpperCase()]],
-  }),
+  tabBarPosition: 'bottom',
 };
 
-const TabNavigator = createBottomTabNavigator(routeConfig, tabNavigatorConfig);
+const TabNavigator = createMaterialTopTabNavigator(routeConfig, tabNavigatorConfig);
 const AppContainer = createAppContainer(TabNavigator);
 export default AppContainer;
