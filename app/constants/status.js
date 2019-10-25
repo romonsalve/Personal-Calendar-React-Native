@@ -1,7 +1,7 @@
 export const RESERVED = 1;
 export const CONFIRMED = 2;
-export const ASSISTED = 3;
-export const DIDNT_ASSIST = 6;
+export const ATTENDED = 3;
+export const SKIPPED = 6;
 export const PENDING = 7;
 export const WAITING = 8;
 
