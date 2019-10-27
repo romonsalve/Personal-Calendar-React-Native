@@ -1,9 +1,9 @@
 import React from 'react';
-import BookingScreen from './BookingScreen';
+import BookingListContainer from '../components/BookingListContainer';
 import { WAITING } from '../constants/status';
 
 export default function WaitingBookingScreen() {
   return (
-    <BookingScreen status={WAITING} />
+    <BookingListContainer status={WAITING} />
   );
 }

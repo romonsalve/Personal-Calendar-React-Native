@@ -1,11 +1,15 @@
 import React from 'react';
-import { createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
 import { SafeAreaView } from 'react-native';
-import calendarApp from './app/reducers/reducers';
+import rootReducer from './app/reducers/reducers';
 import AppContainer from './app/navigation/navigation';
 
-const store = createStore(calendarApp);
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware),
+);
 
 export default function App() {
   return (
