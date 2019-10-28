@@ -2,12 +2,17 @@ import { Text, View, SectionList, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import DateHeader from './DateHeader';
+import BookingItem from './BookingItem';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignContent: 'center',
   },
 });
 
@@ -17,7 +22,7 @@ export default class BookingList extends Component {
     const { fetchBookings, status } = this.props;
     fetchBookings(status);
   }
-  
+ 
   bookingsByDate() {
     const { bookings } = this.props;
     const bookingsGrouped = {};
@@ -37,10 +42,10 @@ export default class BookingList extends Component {
   }
 
   render() {
-    const { isFetching, bookings } = this.props;
+    const { isFetching } = this.props;
     if (isFetching) {
       return (
-        <View style={ styles.container }>
+        <View style={styles.loadingContainer}>
           <Text>Loading</Text>
         </View>
       );
@@ -49,12 +54,12 @@ export default class BookingList extends Component {
     const sections = this.bookingsByDate();
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.container}>
         <SectionList
           sections={sections}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Text>{item.id}</Text>}
-          renderSectionHeader={({ section: { title } }) => (<Text>{title}</Text>)}
+          renderItem={({ item }) => <BookingItem booking={item} />}
+          renderSectionHeader={({ section: { title } }) => (<DateHeader dateText={title} />)}
         />
       </View>
     );
