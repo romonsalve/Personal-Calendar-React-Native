@@ -40,5 +40,4 @@ NavigationMenuItem.propTypes = {
   status: PropTypes.number.isRequired,
   handlePress: PropTypes.func.isRequired,
   selectedStatus: PropTypes.number.isRequired,
-
 };
