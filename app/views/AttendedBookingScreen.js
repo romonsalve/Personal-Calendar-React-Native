@@ -1,9 +1,9 @@
 import React from 'react';
-import BookingScreen from './BookingScreen';
+import BookingListContainer from '../components/BookingListContainer';
 import { ATTENDED } from '../constants/status';
 
 export default function AttendedBookingScreen() {
   return (
-    <BookingScreen status={ATTENDED} />
+    <BookingListContainer status={ATTENDED} />
   );
 }

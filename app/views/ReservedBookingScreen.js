@@ -1,9 +1,9 @@
 import React from 'react';
-import BookingScreen from './BookingScreen';
+import BookingListContainer from '../components/BookingListContainer';
 import { RESERVED } from '../constants/status';
 
 export default function ReservedBookingScreen() {
   return (
-    <BookingScreen status={RESERVED} />
+    <BookingListContainer status={RESERVED} />
   );
 }
