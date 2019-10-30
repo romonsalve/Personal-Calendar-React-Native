@@ -5,6 +5,7 @@ export const REQUEST_BOOKINGS = 'REQUEST_BOOKINGS';
 export const RECEIVE_BOOKINGS = 'RECEIVE_POSTS';
 export const REMOVE_BOOKING = 'REMOVE_BOOKING';
 export const CHANGE_BOOKING_STATUS = 'CHANGE_BOOKING_STATUS';
+export const SELECT_BOOKING = 'SELECT_BOOKING';
 
 
 export function setStatus(status) {
@@ -43,6 +44,13 @@ export function changeBookingStatus(bookingId, currentStatus, newStatus) {
     bookingId,
     currentStatus,
     newStatus,
+  };
+}
+
+export function selectBooking(booking) {
+  return {
+    type: SELECT_BOOKING,
+    booking,
   };
 }
 

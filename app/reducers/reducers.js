@@ -1,18 +1,7 @@
 import { combineReducers } from 'redux';
-import { RESERVED } from '../constants/status';
 import * as Actions from '../actions/actions';
 
-function selectedStatus(state = RESERVED, action) {
-  switch (action.type) {
-    case Actions.SET_STATUS:
-      return action.status;
-    default:
-      return state;
-  }
-}
-
 function bookingsById(bookings) {
-
   return bookings.reduce((obj, booking) => {
     obj[booking.id] = booking;
     return obj;
@@ -51,9 +40,18 @@ function bookingsByStatus(state = {}, action) {
   }
 }
 
+function selectedBooking(state = {}, action) {
+  switch (action.type) {
+    case Actions.SELECT_BOOKING:
+      return { ...action.booking, dirty: false }
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   bookingsByStatus,
-  selectedStatus,
+  selectedBooking,
 });
 
 export default rootReducer;

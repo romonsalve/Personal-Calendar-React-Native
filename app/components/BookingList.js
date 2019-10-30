@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DateHeader from './DateHeader';
-import BookingItem from './BookingItem';
+import BookingItemContainer from './BookingItemContainer';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,7 +57,7 @@ export default class BookingList extends Component {
         <SectionList
           sections={sections}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <BookingItem booking={item} />}
+          renderItem={({ item }) => <BookingItemContainer booking={item} />}
           renderSectionHeader={({ section: { title } }) => (<DateHeader dateText={title} />)}
         />
       </View>

@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { cancelBooking } from '../actions/actions';
 import BookingDetailScreen from './BookingDetailScreen';
 
-function mapStateToProps(state, ownProps) {
-  return {};
+function mapStateToProps(state) {
+  return { booking: state.selectedBooking };
 }
 
 function mapDispatchToProps(dispatch) {

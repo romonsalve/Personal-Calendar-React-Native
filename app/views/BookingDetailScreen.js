@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Text, View, StyleSheet, Button, Alert,
+  Text, View, StyleSheet, Button, Alert, Picker,
 } from 'react-native';
 import moment from 'moment';
 import { withNavigation } from 'react-navigation';
@@ -42,19 +42,17 @@ function renderEditButton() {
   );
 }
 
-function pressCancelButtonHandler(booking, navigation, cancelBooking) {
-  cancelBooking(booking.id, booking.status_id);
-  navigation.goBack();
-}
-
-function renderCancelAlert(booking, navigation, cancelBooking) {
+function renderCancelAlert({ booking, navigation, cancelBooking }) {
   return Alert.alert(
     es_CL.booking.cancelAlert.title({ service: booking.service }),
     es_CL.booking.cancelAlert.message,
     [
       {
         text: es_CL.booking.actions.cancel,
-        onPress: () => pressCancelButtonHandler(booking, navigation, cancelBooking),
+        onPress: () => {
+          cancelBooking(booking.id, booking.status_id);
+          navigation.goBack();
+        },
         style: 'destructive',
       },
       { text: es_CL.commons.back },
@@ -63,8 +61,8 @@ function renderCancelAlert(booking, navigation, cancelBooking) {
   );
 }
 
-function BookingDetailScreen({ navigation, cancelBooking }) {
-  const booking = navigation.getParam('booking', {});
+function BookingDetailScreen(props) {
+  const { booking } = props;
   const formatDate = 'dddd, D MMMM YYYY';
   const formatTime = 'HH:DD';
   const price = `$${booking.price}`;
@@ -80,6 +78,8 @@ function BookingDetailScreen({ navigation, cancelBooking }) {
           <Text style={styles.timeText}>{moment(booking.start).format(formatTime) }</Text>
           <Text style={styles.timeText}>{moment(booking.end).format(formatTime) }</Text>
         </View>
+
+        
       </View>
       
       <View style={styles.clientInfo}>
@@ -88,9 +88,15 @@ function BookingDetailScreen({ navigation, cancelBooking }) {
         <Text>{booking.client.email}</Text>
       </View>
 
+      <Picker
+        style={{width: 100}}>
+        <Picker.Item label="Java" value="java" />
+        <Picker.Item label="JavaScript" value="js" />
+      </Picker>
+
       <Button
         title={es_CL.booking.actions.cancel}
-        onPress={() => renderCancelAlert(booking, navigation, cancelBooking)}
+        onPress={() => renderCancelAlert(props)}
         color={Colors.CANCEL_ERROR}
       />
       
@@ -98,9 +104,11 @@ function BookingDetailScreen({ navigation, cancelBooking }) {
   );
 }
 
-export default withNavigation(BookingDetailScreen);
-
 BookingDetailScreen.navigationOptions = {
   headerTitle: es_CL.screens.bookingDetail.headerTitle,
   headerRight: renderEditButton,
 };
+
+export default withNavigation(BookingDetailScreen);
+
+

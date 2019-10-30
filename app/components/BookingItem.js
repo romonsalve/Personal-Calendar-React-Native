@@ -24,14 +24,20 @@ const styles = StyleSheet.create({
   },
 });
 
+function handleItemPress({ booking, navigation, selectBooking }) {
+  selectBooking(booking);
+  navigation.navigate('Details');
+}
 
-function BookingItem({ booking, navigation }) {
+
+function BookingItem(props) {
+  const { booking } = props;
   const {
     start, end, service, location, client,
   } = booking;
   const clientName = `${client.first_name} ${client.last_name}`;
   return (
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Details', { booking })}>
+    <TouchableOpacity style={styles.container} onPress={() => handleItemPress(props)}>
       <View style={styles.timeContainer}>
         <Text>{moment(start).format('HH:mm')}</Text>
         <Text>{moment(end).format('HH:mm')}</Text>
