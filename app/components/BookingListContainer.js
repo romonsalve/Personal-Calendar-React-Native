@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
-import { setStatus } from '../actions/actions';
-import { fetchBookings } from '../reducers/reducers';
+import { setStatus, fetchBookings } from '../actions/actions';
 import BookingList from './BookingList';
 
 
 function mapStateToProps(state, ownProps) {
-  const { bookings = [], isFetching = false } = state.bookingsByStatus[ownProps.status] || {};
+  const { bookings = {}, isFetching = false } = state.bookingsByStatus[ownProps.status] || {};
   return {
     selectedStatus: state.selectedStatus,
-    bookings,
+    bookings: Object.values(bookings),
     isFetching,
   };
 }

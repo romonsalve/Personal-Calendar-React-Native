@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
-import { Buttons, Spacing } from '../styles';
+import React from 'react';
+import {
+  Text, View, StyleSheet, Button, Alert,
+} from 'react-native';
 import moment from 'moment';
+import { withNavigation } from 'react-navigation';
+import { Spacing, Colors } from '../styles';
+import es_CL from '../i18n/es-CL';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +14,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bookingInfo: {
-    flex: 1,
+    flex: 2,
   },
   timeContainer: {
     flex: 1,
@@ -20,9 +24,12 @@ const styles = StyleSheet.create({
     marginRight: Spacing.extraSmall,
   },
   clientInfo: {
-    flex: 1,
+    flex: 2,
   },
   cancelButton: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    color: Colors.CANCEL_ERROR,
   },
 });
 
@@ -30,13 +37,33 @@ function renderEditButton() {
   return (
     <Button
       onPress={() => alert('This is a button!')}
-      title='Editar'
+      title={es_CL.commons.edit}
     />
   );
 }
 
-export default function BookingDetailScreen({ navigation }) {
+function pressCancelButtonHandler(booking, navigation, cancelBooking) {
+  cancelBooking(booking.id, booking.status_id);
+  navigation.goBack();
+}
 
+function renderCancelAlert(booking, navigation, cancelBooking) {
+  return Alert.alert(
+    es_CL.booking.cancelAlert.title({ service: booking.service }),
+    es_CL.booking.cancelAlert.message,
+    [
+      {
+        text: es_CL.booking.actions.cancel,
+        onPress: () => pressCancelButtonHandler(booking, navigation, cancelBooking),
+        style: 'destructive',
+      },
+      { text: es_CL.commons.back },
+    ],
+    { cancelable: false },
+  );
+}
+
+function BookingDetailScreen({ navigation, cancelBooking }) {
   const booking = navigation.getParam('booking', {});
   const formatDate = 'dddd, D MMMM YYYY';
   const formatTime = 'HH:DD';
@@ -60,12 +87,20 @@ export default function BookingDetailScreen({ navigation }) {
         <Text>{clientName}</Text>
         <Text>{booking.client.email}</Text>
       </View>
+
+      <Button
+        title={es_CL.booking.actions.cancel}
+        onPress={() => renderCancelAlert(booking, navigation, cancelBooking)}
+        color={Colors.CANCEL_ERROR}
+      />
       
     </View>
   );
 }
 
+export default withNavigation(BookingDetailScreen);
+
 BookingDetailScreen.navigationOptions = {
-  headerTitle: 'Detalles de la cita',
+  headerTitle: es_CL.screens.bookingDetail.headerTitle,
   headerRight: renderEditButton,
 };

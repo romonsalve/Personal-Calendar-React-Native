@@ -17,12 +17,11 @@ const styles = StyleSheet.create({
 });
 
 export default class BookingList extends Component {
-
   componentDidMount() {
     const { fetchBookings, status } = this.props;
     fetchBookings(status);
   }
- 
+
   bookingsByDate() {
     const { bookings } = this.props;
     const bookingsGrouped = {};

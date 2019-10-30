@@ -8,11 +8,7 @@ import AttendedBookingScreen from '../views/AttendedBookingScreen';
 import SkippedBookingScreen from '../views/SkippedBookingScreen';
 import PendingBookingScreen from '../views/PendingBookingScreen';
 import WaitingBookingScreen from '../views/WaitingBookingScreen';
-import BookingDetailScreen from '../views/BookingDetailScreen';
-
-
-
-import * as Status from '../constants/status';
+import BookingDetailScreenContainer from '../views/BookingDetailScreenContainer';
 
 // const routeConfig = {
 //   Reserved: {
@@ -60,32 +56,32 @@ function stackNavigationOptions({ navigation }) {
 
 const ReservedStack = createStackNavigator({
   Reserved: ReservedBookingScreen,
-  Details: BookingDetailScreen,
+  Details: BookingDetailScreenContainer,
 });
 
 const ConfirmedStack = createStackNavigator({
   Confirmed: ConfirmedBookingScreen,
-  Details: BookingDetailScreen,
+  Details: BookingDetailScreenContainer,
 });
 
 const AttendedStack = createStackNavigator({
   Attended: AttendedBookingScreen,
-  Details: BookingDetailScreen,
+  Details: BookingDetailScreenContainer,
 });
 
 const SkippedStack = createStackNavigator({
   Skipped: SkippedBookingScreen,
-  Details: BookingDetailScreen,
+  Details: BookingDetailScreenContainer,
 });
 
 const PendingStack = createStackNavigator({
   Pending: PendingBookingScreen,
-  Details: BookingDetailScreen,
+  Details: BookingDetailScreenContainer,
 });
 
 const WaitingStack = createStackNavigator({
   Waiting: WaitingBookingScreen,
-  Details: BookingDetailScreen,
+  Details: BookingDetailScreenContainer,
 });
 
 ReservedStack.navigationOptions = stackNavigationOptions;
@@ -102,7 +98,7 @@ const tabNavigationRoute = {
   Skipped: SkippedStack,
   Pending: PendingStack,
   Waiting: WaitingStack,
-}
+};
 
 const tabNavigatorConfig = {
   tabBarPosition: 'bottom',
