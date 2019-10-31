@@ -9,6 +9,8 @@ import SkippedBookingScreen from '../views/SkippedBookingScreen';
 import PendingBookingScreen from '../views/PendingBookingScreen';
 import WaitingBookingScreen from '../views/WaitingBookingScreen';
 import BookingDetailScreenContainer from '../views/BookingDetailScreenContainer';
+import BookingEditContainer from '../views/BookingEditContainer';
+import SelectList from '../components/SelectList';
 
 // const routeConfig = {
 //   Reserved: {
@@ -51,37 +53,47 @@ import BookingDetailScreenContainer from '../views/BookingDetailScreenContainer'
 
 
 function stackNavigationOptions({ navigation }) {
-  return { tabBarVisible: !(navigation.state.index > 0) };
+  const isOnTopScreen = navigation.state.index === 0;
+  return { 
+    tabBarVisible: isOnTopScreen,
+    swipeEnabled: isOnTopScreen,
+  };
 }
+
+const commonStack = {
+  Details: BookingDetailScreenContainer,
+  Edit: BookingEditContainer,
+  SelectList,
+};
 
 const ReservedStack = createStackNavigator({
   Reserved: ReservedBookingScreen,
-  Details: BookingDetailScreenContainer,
+  ...commonStack,
 });
 
 const ConfirmedStack = createStackNavigator({
   Confirmed: ConfirmedBookingScreen,
-  Details: BookingDetailScreenContainer,
+  ...commonStack,
 });
 
 const AttendedStack = createStackNavigator({
   Attended: AttendedBookingScreen,
-  Details: BookingDetailScreenContainer,
+  ...commonStack,
 });
 
 const SkippedStack = createStackNavigator({
   Skipped: SkippedBookingScreen,
-  Details: BookingDetailScreenContainer,
+  ...commonStack,
 });
 
 const PendingStack = createStackNavigator({
   Pending: PendingBookingScreen,
-  Details: BookingDetailScreenContainer,
+  ...commonStack,
 });
 
 const WaitingStack = createStackNavigator({
   Waiting: WaitingBookingScreen,
-  Details: BookingDetailScreenContainer,
+  ...commonStack,
 });
 
 ReservedStack.navigationOptions = stackNavigationOptions;

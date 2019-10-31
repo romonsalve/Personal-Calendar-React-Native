@@ -1,16 +1,22 @@
 import { connect } from 'react-redux';
-import { setStatus, fetchBookings } from '../actions/actions';
+import { updateBookingProperty, updateBooking } from '../actions/actions';
 import BookingEdit from './BookingEdit';
 
 
 function mapStateToProps(state) {
-  return { ...state.selectedBooking };
+  return { booking: state.selectedBooking };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateBooking: (booking, previousStatus) => (
-      dispatch(updateBooking(booking, previousStatus))
+    // updateBooking: (booking, previousStatus) => (
+    //   dispatch(updateBooking(booking, previousStatus))
+    // ),
+    updateBookingProperty: (property, value) => (
+      dispatch(updateBookingProperty(property, value))
+    ),
+    updateBooking: (booking) => (
+      dispatch(updateBooking(booking))
     ),
   };
 }

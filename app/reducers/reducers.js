@@ -21,8 +21,10 @@ function bookingsState(state = { isFetching: false, bookings: {} }, action) {
       return { ...state, isFetching: true };
     case Actions.RECEIVE_BOOKINGS:
       return { ...state, isFetching: false, bookings: bookingsById(action.bookings) };
-    case Actions.CANCEL_BOOKING:
+    case Actions.REMOVE_BOOKING:
       return { ...state, bookings: removeBooking(action.bookingId, state.bookings) };
+    case Actions.ADD_BOOKING:
+      return { ...state, bookings: { ...state.bookings, [action.booking.id]: action.booking } };
     default:
       return state;
   }
@@ -33,7 +35,8 @@ function bookingsByStatus(state = {}, action) {
   switch (action.type) {
     case Actions.REQUEST_BOOKINGS:
     case Actions.RECEIVE_BOOKINGS:
-    case Actions.CANCEL_BOOKING:
+    case Actions.REMOVE_BOOKING:
+    case Actions.ADD_BOOKING:
       return { ...state, [status]: bookingsState(state[status], action) };
     default:
       return state;
@@ -43,7 +46,9 @@ function bookingsByStatus(state = {}, action) {
 function selectedBooking(state = {}, action) {
   switch (action.type) {
     case Actions.SELECT_BOOKING:
-      return { ...action.booking, dirty: false }
+      return { ...action.booking, dirty: false, previousStatus: action.booking.status_id };
+    case Actions.UPDATE_BOOKING_PROTERTY:
+      return { ...state, dirty: true, [action.property]: action.value };
     default:
       return state;
   }

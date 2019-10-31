@@ -26,3 +26,13 @@ export function getBookings(status) {
 export function deleteBooking(bookingId) {
   return fetch(bookingByIdURL(bookingId), { method: 'DELETE', headers: headers() });
 }
+
+export function patchBooking(bookingId, params) {
+  const body = new FormData();
+  Object.keys(params).forEach((key) => body.append(key, params[key]));
+
+  return fetch(
+    bookingByIdURL(bookingId),
+    { method: 'PATCH', headers: headers(), body },
+  );
+}

@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function renderEditButton() {
+function renderEditButton(navigation) {
   return (
     <Button
-      onPress={() => alert('This is a button!')}
+      onPress={() => navigation.navigate('Edit')}
       title={es_CL.commons.edit}
     />
   );
@@ -104,10 +104,12 @@ function BookingDetailScreen(props) {
   );
 }
 
-BookingDetailScreen.navigationOptions = {
-  headerTitle: es_CL.screens.bookingDetail.headerTitle,
-  headerRight: renderEditButton,
-};
+BookingDetailScreen.navigationOptions = ({ navigation }) => (
+  {
+    headerTitle: es_CL.screens.bookingDetail.headerTitle,
+    headerRight: renderEditButton(navigation),
+  }
+);
 
 export default withNavigation(BookingDetailScreen);
 
