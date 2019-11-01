@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { Spacing, Colors } from '../styles';
 import moment from 'moment';
+import { Spacing, Colors } from '../styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { withNavigation } from 'react-navigation';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -21,13 +24,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function BookingItem({ booking }) {
+function handleItemPress({ booking, navigation, selectBooking }) {
+  selectBooking(booking);
+  navigation.navigate('Details');
+}
+
+
+function BookingItem(props) {
+  const { booking } = props;
   const {
     start, end, service, location, client,
   } = booking;
   const clientName = `${client.first_name} ${client.last_name}`;
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => handleItemPress(props)}>
       <View style={styles.timeContainer}>
         <Text>{moment(start).format('HH:mm')}</Text>
         <Text>{moment(end).format('HH:mm')}</Text>
@@ -37,9 +47,11 @@ export default function BookingItem({ booking }) {
         <Text>{location}</Text>
         <Text>{clientName}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
+
+export default withNavigation(BookingItem);
 
 BookingItem.propTypes = {
   booking: PropTypes.shape({

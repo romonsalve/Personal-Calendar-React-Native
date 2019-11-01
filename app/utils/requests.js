@@ -8,6 +8,10 @@ function getBookingsUrl(status) {
   return `${baseUrl}?status_id=${status}`;
 }
 
+function bookingByIdURL(id) {
+  return `https://bambucalendar.cl/api/public/v1/bookings/${id}`;
+}
+
 function headers() {
   const h = new Headers();
   const authString = `${username}:${password}`;
@@ -16,5 +20,19 @@ function headers() {
 }
 
 export function getBookings(status) {
-  return fetch(getBookingsUrl(status), {method: 'GET', headers: headers()});
+  return fetch(getBookingsUrl(status), { method: 'GET', headers: headers() });
+}
+
+export function deleteBooking(bookingId) {
+  return fetch(bookingByIdURL(bookingId), { method: 'DELETE', headers: headers() });
+}
+
+export function patchBooking(bookingId, params) {
+  const body = new FormData();
+  Object.keys(params).forEach((key) => body.append(key, params[key]));
+
+  return fetch(
+    bookingByIdURL(bookingId),
+    { method: 'PATCH', headers: headers(), body },
+  );
 }
