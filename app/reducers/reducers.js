@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import * as Actions from '../actions/actions';
+import visibleMainHeader from './visible_main_header_reducer';
+import filters from './filters';
 
 function bookingsById(bookings) {
   return bookings.reduce((obj, booking) => {
@@ -57,6 +59,8 @@ function selectedBooking(state = {}, action) {
 const rootReducer = combineReducers({
   bookingsByStatus,
   selectedBooking,
+  visibleMainHeader,
+  filters,
 });
 
 export default rootReducer;

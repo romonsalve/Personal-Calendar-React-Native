@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Button, Text, StyleSheet } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import { connect } from 'react-redux';
+import { Platform, StatusBar } from 'react-native';
 import es_CL from '../i18n/es-CL';
-import { Dimensions, Platform, StatusBar } from 'react-native';
 import { Spacing } from '../styles';
-import { Header } from 'react-navigation-stack';
-
+import { showFilters } from '../actions/filters_actions'
+import FilterModalContainer from '../views/FilterModal';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
   },
 });
 
-function MainHeader({ navigation }) {
+function MainHeader({ navigation, visibleMainHeader, handleFilterPress }) {
+  if (!visibleMainHeader) return null;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -49,15 +51,31 @@ function MainHeader({ navigation }) {
         <View style={styles.button}>
           <Button
             title={es_CL.commons.filters}
-            onPress={() => navigation.navigate('Filters')}
+            onPress={handleFilterPress}
           />
         </View>
       </View>
       <View style={styles.filterContainer}>
         <Text style={styles.filterText}>Todas tus citas Reservadas desde Hoy</Text>
       </View>
+      <FilterModalContainer />
     </View>
   );
 }
 
-export default withNavigation(MainHeader);
+function mapStateToProps({ visibleMainHeader }) {
+  return { visibleMainHeader };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    handleFilterPress: () => { dispatch(showFilters()); },
+  };
+}
+
+const MainHeaderContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MainHeader);
+
+export default withNavigation(MainHeaderContainer);

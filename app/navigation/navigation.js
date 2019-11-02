@@ -12,7 +12,6 @@ import WaitingBookingScreen from '../views/WaitingBookingScreen';
 import BookingDetailScreenContainer from '../views/BookingDetailScreenContainer';
 import BookingEditContainer from '../views/BookingEditContainer';
 import SelectList from '../components/SelectList';
-import FilterScreen from '../views/FilterScreen';
 import MainHeader from '../components/MainHeader';
 
 function stackNavigationOptions({ navigation }) {
@@ -26,7 +25,6 @@ function stackNavigationOptions({ navigation }) {
 const commonStack = {
   Details: BookingDetailScreenContainer,
   Edit: BookingEditContainer,
-  Filters: FilterScreen,
   SelectList,
 };
 

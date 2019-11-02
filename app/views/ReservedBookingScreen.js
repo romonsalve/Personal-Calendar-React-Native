@@ -9,8 +9,7 @@ function ReservedBookingScreen() {
 }
 
 ReservedBookingScreen.navigationOptions = ({ navigation }) => ({
-  headerMode: 'none',
-  showHeader: false,
+  header: null,
 });
 
 export default ReservedBookingScreen;
