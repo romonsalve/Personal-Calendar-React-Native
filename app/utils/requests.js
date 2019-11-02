@@ -15,7 +15,7 @@ function bookingByIdURL(id) {
 function headers() {
   const h = new Headers();
   const authString = `${username}:${password}`;
-  h.append('Authorization', 'Basic ' + base64.encode(authString));
+  h.append('Authorization', `Basic ${base64.encode(authString)}`);
   return h;
 }
 

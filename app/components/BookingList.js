@@ -1,9 +1,11 @@
-import { Text, View, SectionList, StyleSheet } from 'react-native';
+import { Text, View, SectionList, StyleSheet, Button } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { withNavigation, NavigationEvents } from 'react-navigation';
 import DateHeader from './DateHeader';
 import BookingItemContainer from './BookingItemContainer';
+import esCL from '../i18n/es-CL';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class BookingList extends Component {
+class BookingList extends Component {
   componentDidMount() {
     const { fetchBookings, status } = this.props;
     fetchBookings(status);
@@ -89,5 +91,10 @@ BookingList.propTypes = {
       identification: PropTypes.string,
     }),
   })).isRequired,
-
 };
+
+
+
+
+
+export default withNavigation(BookingList);

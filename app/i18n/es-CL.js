@@ -25,6 +25,7 @@ const es_CL = {
     edit: 'Editar',
     back: 'Volver',
     save: 'Guardar',
+    filters: 'Filtros',
   },
   screens: {
     bookingDetail: {
