@@ -20,3 +20,9 @@ export function applyFilters() {
     dispatch(hideFilters());
   };
 }
+
+export function resetFilters() {
+  return (dispatch) => {
+    dispatch(hideFilters());
+  };
+}

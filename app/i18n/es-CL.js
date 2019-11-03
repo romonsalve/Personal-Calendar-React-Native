@@ -27,6 +27,13 @@ const es_CL = {
     save: 'Guardar',
     filters: 'Filtros',
   },
+  filters: {
+    apply: 'Aplicar filtros',
+    reset: 'Limpiar filtros',
+    start: 'Desde',
+    end: 'Hasta',
+    date: 'Fecha de la cita',
+  },
   screens: {
     bookingDetail: {
       headerTitle: 'Detalles de la cita',
