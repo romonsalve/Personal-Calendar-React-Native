@@ -1,3 +1,4 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
@@ -11,50 +12,11 @@ import WaitingBookingScreen from '../views/WaitingBookingScreen';
 import BookingDetailScreenContainer from '../views/BookingDetailScreenContainer';
 import BookingEditContainer from '../views/BookingEditContainer';
 import SelectList from '../components/SelectList';
-
-// const routeConfig = {
-//   Reserved: {
-//     screen: ReservedBookingScreen,
-//     navigationOptions: {
-//       tabBarLabel: Status.STATUS_TEXT[Status.RESERVED],
-//     },
-//   },
-//   Confirmed: {
-//     screen: ConfirmedBookingScreen,
-//     navigationOptions: {
-//       tabBarLabel: Status.STATUS_TEXT[Status.CONFIRMED],
-//     },
-//   },
-//   Attended: {
-//     screen: AttendedBookingScreen,
-//     navigationOptions: {
-//       tabBarLabel: Status.STATUS_TEXT[Status.ATTENDED],
-//     },
-//   },
-//   Skipped: {
-//     screen: SkippedBookingScreen,
-//     navigationOptions: {
-//       tabBarLabel: Status.STATUS_TEXT[Status.SKIPPED],
-//     },
-//   },
-//   Pending: {
-//     screen: PendingBookingScreen,
-//     navigationOptions: {
-//       tabBarLabel: Status.STATUS_TEXT[Status.PENDING],
-//     },
-//   },
-//   Waiting: {
-//     screen: WaitingBookingScreen,
-//     navigationOptions: {
-//       tabBarLabel: Status.STATUS_TEXT[Status.WAITING],
-//     },
-//   },
-// };
-
+import MainHeader from '../components/MainHeader';
 
 function stackNavigationOptions({ navigation }) {
   const isOnTopScreen = navigation.state.index === 0;
-  return { 
+  return {
     tabBarVisible: isOnTopScreen,
     swipeEnabled: isOnTopScreen,
   };
@@ -118,5 +80,14 @@ const tabNavigatorConfig = {
 
 const TabNavigator = createMaterialTopTabNavigator(tabNavigationRoute, tabNavigatorConfig);
 
-const AppContainer = createAppContainer(TabNavigator);
+const MainStackNavigator = createStackNavigator(
+  { Home: TabNavigator },
+  {
+    defaultNavigationOptions: {
+      header: <MainHeader />,
+    },
+  },
+);
+
+const AppContainer = createAppContainer(MainStackNavigator);
 export default AppContainer;

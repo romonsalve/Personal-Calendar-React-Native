@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateBookingProperty, updateBooking } from '../actions/actions';
+import { updateBookingProperty, updateBooking } from '../actions/bookings_actions';
 import BookingEdit from './BookingEdit';
 
 

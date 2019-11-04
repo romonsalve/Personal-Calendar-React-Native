@@ -1,21 +1,21 @@
 import { connect } from 'react-redux';
-import { setStatus, fetchBookings } from '../actions/actions';
+import { fetchBookings } from '../actions/bookings_actions';
 import BookingList from './BookingList';
 
 
 function mapStateToProps(state, ownProps) {
   const { bookings = {}, isFetching = false } = state.bookingsByStatus[ownProps.status] || {};
+  const { range_from, range_to } = state.filters;
   return {
-    selectedStatus: state.selectedStatus,
     bookings: Object.values(bookings),
     isFetching,
+    filters: { range_from, range_to },
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleItemPress: (status) => { dispatch(setStatus(status)); },
-    fetchBookings: (status) => { dispatch(fetchBookings(status)); },
+    fetchBookings: (status, filters) => { dispatch(fetchBookings(status, filters)); },
   };
 }
 

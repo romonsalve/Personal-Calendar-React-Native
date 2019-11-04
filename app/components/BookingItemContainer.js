@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { selectBooking } from '../actions/actions';
+import { selectBooking } from '../actions/bookings_actions';
 import BookingItem from './BookingItem';
 
 

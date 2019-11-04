@@ -2,8 +2,10 @@ import { Text, View, SectionList, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { withNavigation } from 'react-navigation';
 import DateHeader from './DateHeader';
 import BookingItemContainer from './BookingItemContainer';
+import esCL from '../i18n/es-CL';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,10 +18,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class BookingList extends Component {
+class BookingList extends Component {
   componentDidMount() {
-    const { fetchBookings, status } = this.props;
-    fetchBookings(status);
+    const { fetchBookings, status, filters } = this.props;
+    fetchBookings(status, filters);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status, filters, fetchBookings } = this.props;
+    const prevFilters = JSON.stringify(prevProps.filters);
+    const currentFilters = JSON.stringify(filters);
+    if (status !== prevProps.status || prevFilters !== currentFilters) {
+      fetchBookings(status, filters);
+    }
   }
 
   bookingsByDate() {
@@ -69,6 +80,10 @@ BookingList.propTypes = {
   fetchBookings: PropTypes.func.isRequired,
   status: PropTypes.number.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  filters: PropTypes.shape({
+    range_from: PropTypes.string,
+    range_to: PropTypes.string,
+  }).isRequired,
   bookings: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     service_provider_id: PropTypes.number,
@@ -89,5 +104,10 @@ BookingList.propTypes = {
       identification: PropTypes.string,
     }),
   })).isRequired,
-
 };
+
+
+
+
+
+export default withNavigation(BookingList);
