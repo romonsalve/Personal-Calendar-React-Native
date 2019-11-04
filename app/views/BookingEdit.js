@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { withNavigation } from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
 import {
   Text, View, StyleSheet, Button, Alert
 } from 'react-native';
@@ -48,7 +49,7 @@ function BookingEdit({ booking, navigation, updateBookingProperty }) {
       <SelectorWithIcon
         label={esCL.booking.properties.status}
         element={booking.status}
-        icon=">"
+        icon={<Ionicons name="ios-arrow-forward" size={16} color="black" />}
         onPress={() => {
           navigation.navigate('SelectList', {
             options: statusList(),

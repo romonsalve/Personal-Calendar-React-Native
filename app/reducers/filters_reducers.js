@@ -2,12 +2,13 @@ import moment from 'moment';
 import {
   SHOW_FILTERS, HIDE_FILTERS, APPLY_FILTERS, RESET_FILTERS,
 } from '../actions/filters_actions';
-import { filterDisplayFormat } from '../constants/date_formats';
+import { filterDisplayFormat, filterParseFormat } from '../constants/date_formats';
+import { TODAY_DATE } from '../constants/env';
 
 const defaultState = {
   visible: false,
-  range_from: moment().format(filterDisplayFormat),
-  range_to: moment().add(1, 'M').format(filterDisplayFormat),
+  range_from: moment(TODAY_DATE, filterParseFormat).format(filterDisplayFormat),
+  range_to: moment(TODAY_DATE, filterParseFormat).add(1, 'M').format(filterDisplayFormat),
   apply: false,
 };
 

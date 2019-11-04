@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import {
+  View, Button, Text, StyleSheet, Platform, StatusBar,
+} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Platform, StatusBar } from 'react-native';
+import moment from 'moment';
 import es_CL from '../i18n/es-CL';
 import { Spacing } from '../styles';
-import { showFilters } from '../actions/filters_actions'
+import { showFilters } from '../actions/filters_actions';
 import FilterModalContainer from '../views/FilterModal';
+import { filterParseFormat, dateDisplay } from '../constants/date_formats';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,8 +43,24 @@ const styles = StyleSheet.create({
   },
 });
 
-function MainHeader({ navigation, visibleMainHeader, handleFilterPress }) {
+function MainHeader(props) {
+  const { visibleMainHeader } = props;
   if (!visibleMainHeader) return null;
+  const {
+    handleFilterPress, filters, count, currentStatus
+  } = props;
+  const status = es_CL.booking.status_plural[currentStatus];
+  let filterText = '';
+  const { apply } = filters;
+
+  if (apply) {
+    const { range_from, range_to } = filters;
+    const startDate = moment(range_from, filterParseFormat).format(dateDisplay);
+    const endDate = moment(range_to, filterParseFormat).format(dateDisplay);
+    filterText = es_CL.filters.withFilterText(count, status, startDate, endDate);
+  } else {
+    filterText = es_CL.filters.noFilterText(count, status);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -56,15 +75,22 @@ function MainHeader({ navigation, visibleMainHeader, handleFilterPress }) {
         </View>
       </View>
       <View style={styles.filterContainer}>
-        <Text style={styles.filterText}>Todas tus citas Reservadas desde Hoy</Text>
+        <Text style={styles.filterText}>{filterText}</Text>
       </View>
       <FilterModalContainer />
     </View>
   );
 }
 
-function mapStateToProps({ visibleMainHeader }) {
-  return { visibleMainHeader };
+function mapStateToProps({
+  visibleMainHeader, filters, currentStatus, bookingsByStatus,
+}) {
+  return {
+    visibleMainHeader,
+    filters,
+    currentStatus,
+    count: bookingsByStatus[currentStatus] ? Object.keys(bookingsByStatus[currentStatus].bookings).length : 0,
+  };
 }
 
 function mapDispatchToProps(dispatch) {

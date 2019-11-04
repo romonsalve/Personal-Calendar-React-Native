@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Modal, Text, Button, StyleSheet, View, Platform, DatePickerIOS, DatePickerAndroid,
+  Modal, Text, Button, StyleSheet, View, Platform, DatePickerIOS, DatePickerAndroid, StatusBar,
 } from 'react-native';
 import moment from 'moment';
 import { applyFilters, resetFilters, hideFilters } from '../actions/filters_actions';
@@ -14,17 +14,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
+    paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
   },
   buttonsContainer: {
-    alignSelf: 'flex-end',
   },
   button: {
-    marginBottom: Spacing.extraSmall,
+    marginBottom: Spacing.small,
   },
   titleContainer: {
   },
   title: {
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   filtersContainer: {
     flex: 1,
@@ -91,14 +92,7 @@ class FilterModal extends Component {
         onRequestClose={() => {}}
       >
         <View style={styles.container}>
-          <View style={styles.titleContainer}>
-            <Button
-              title={es_CL.commons.back}
-              onPress={handleBackPress}
-            />
-            <Text>OMG SOY UN MODAL</Text>
-          </View>
-          <Text> OMG filtros</Text>
+          <Text style={styles.title}>{es_CL.filters.title}</Text>
           <View style={styles.filtersContainer}>
             <SelectorWithIcon
               label={es_CL.filters.start}

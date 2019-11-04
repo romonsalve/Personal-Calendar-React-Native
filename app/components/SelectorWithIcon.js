@@ -2,16 +2,18 @@ import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { Spacing } from '../styles';
 import esCL from '../i18n/es-CL';
+import { greyLight } from '../styles/colors';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
-    marginVertical: Spacing.small,
-    padding: Spacing.small,
+    padding: Spacing.extraSmall,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: greyLight,
   },
   label: {
-    flex: 1,
+    flex: 2,
     fontWeight: 'bold',
   },
   element: {
@@ -25,13 +27,12 @@ const styles = StyleSheet.create({
 
 export default function SelectorWithIcon(props) {
   const {label, element, icon, onPress, value = null, showIcon = true} = props;
-  const iconComponent = showIcon ? <Text styles={styles.icon}>{icon}</Text> : null;
   return (
     <TouchableOpacity style={{flex: 1}} onPress={() => onPress(value)}>
       <View style={styles.container}>
         <Text style={styles.label}>{label}</Text>
         <Text style={styles.element}>{element}</Text>
-        {iconComponent}
+        {showIcon ? icon : null}
       </View>
     </TouchableOpacity>
   );

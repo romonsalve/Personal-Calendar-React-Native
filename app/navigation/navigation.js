@@ -13,12 +13,15 @@ import BookingDetailScreenContainer from '../views/BookingDetailScreenContainer'
 import BookingEditContainer from '../views/BookingEditContainer';
 import SelectList from '../components/SelectList';
 import MainHeader from '../components/MainHeader';
+import { Colors, Spacing } from '../styles';
+import es_CL from '../i18n/es-CL';
 
 function stackNavigationOptions({ navigation }) {
   const isOnTopScreen = navigation.state.index === 0;
   return {
     tabBarVisible: isOnTopScreen,
     swipeEnabled: isOnTopScreen,
+    tabBarLabel: es_CL.screens[navigation.state.routeName].tabBarLabel,
   };
 }
 
@@ -76,6 +79,21 @@ const tabNavigationRoute = {
 
 const tabNavigatorConfig = {
   tabBarPosition: 'bottom',
+  tabBarOptions: {
+    labelStyle: {
+      fontSize: 5,
+      color: Colors.black,
+      padding: 0,
+    },
+    upperCaseLabel: false,
+    style: {
+      backgroundColor: Colors.white,
+    },
+    indicatorStyle: {
+      backgroundColor: Colors.blue,
+      top: 0,
+    },
+  },
 };
 
 const TabNavigator = createMaterialTopTabNavigator(tabNavigationRoute, tabNavigatorConfig);

@@ -1,20 +1,27 @@
-import { Text, View, SectionList, StyleSheet } from 'react-native';
+import {
+  Text, View, SectionList, StyleSheet, ActivityIndicator,
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { withNavigation } from 'react-navigation';
+import 'moment/locale/es';
+import { withNavigation, NavigationEvents } from 'react-navigation';
 import DateHeader from './DateHeader';
 import BookingItemContainer from './BookingItemContainer';
-import esCL from '../i18n/es-CL';
+import { Colors } from '../styles';
+import es_CL from '../i18n/es-CL';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  loadingContainer: {
+  centeredContainer: {
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
+  },
+  no_booking: {
+    textAlign: 'center',
   },
 });
 
@@ -38,7 +45,6 @@ class BookingList extends Component {
     const bookingsGrouped = {};
 
     const bookingsSorted = bookings.sort((a, b) => new Date(a.start) > new Date(b.start));
-
     bookingsSorted.forEach((booking) => {
       const groupKey = moment(booking.start).format('ddd D MMMM YYYY');
       if (!Array.isArray(bookingsGrouped[groupKey])) { bookingsGrouped[groupKey] = []; }
@@ -51,12 +57,32 @@ class BookingList extends Component {
     });
   }
 
+  renderNavigationEvents() {
+    const { setCurrentStatus, status } = this.props;
+    return (
+      <NavigationEvents
+        onDidFocus={() => setCurrentStatus(status)}
+      />
+    );
+  }
+
   render() {
     const { isFetching } = this.props;
     if (isFetching) {
       return (
-        <View style={styles.loadingContainer}>
-          <Text>Loading</Text>
+        <View style={styles.centeredContainer}>
+          {this.renderNavigationEvents()}
+          <ActivityIndicator size="large" color={Colors.blue} />
+        </View>
+      );
+    }
+
+    const { bookings } = this.props;
+    if (!Object.keys(bookings).length) {
+      return (
+        <View style={styles.centeredContainer}>
+          {this.renderNavigationEvents()}
+          <Text style={styles.no_booking}>{es_CL.booking.no_bookings}</Text>
         </View>
       );
     }
@@ -65,6 +91,7 @@ class BookingList extends Component {
 
     return (
       <View style={styles.container}>
+        {this.renderNavigationEvents()}
         <SectionList
           sections={sections}
           keyExtractor={(item) => item.id}
@@ -80,6 +107,7 @@ BookingList.propTypes = {
   fetchBookings: PropTypes.func.isRequired,
   status: PropTypes.number.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  setCurrentStatus: PropTypes.func.isRequired,
   filters: PropTypes.shape({
     range_from: PropTypes.string,
     range_to: PropTypes.string,
@@ -105,9 +133,5 @@ BookingList.propTypes = {
     }),
   })).isRequired,
 };
-
-
-
-
 
 export default withNavigation(BookingList);
