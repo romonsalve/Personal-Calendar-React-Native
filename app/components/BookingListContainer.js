@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchBookings } from '../actions/bookings_actions';
 import BookingList from './BookingList';
+import { setCurrentStatus } from '../actions/current_status_actions';
 
 
 function mapStateToProps(state, ownProps) {
@@ -16,6 +17,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchBookings: (status, filters) => { dispatch(fetchBookings(status, filters)); },
+    setCurrentStatus: (status) => { dispatch(setCurrentStatus(status)); },
   };
 }
 

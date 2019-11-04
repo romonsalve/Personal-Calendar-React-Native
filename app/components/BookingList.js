@@ -1,11 +1,12 @@
-import { Text, View, SectionList, StyleSheet } from 'react-native';
+import {
+  Text, View, SectionList, StyleSheet,
+} from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationEvents } from 'react-navigation';
 import DateHeader from './DateHeader';
 import BookingItemContainer from './BookingItemContainer';
-import esCL from '../i18n/es-CL';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,11 +52,21 @@ class BookingList extends Component {
     });
   }
 
+  renderNavigationEvents() {
+    const { setCurrentStatus, status } = this.props;
+    return (
+      <NavigationEvents
+        onDidFocus={() => setCurrentStatus(status)}
+      />
+    );
+  }
+
   render() {
     const { isFetching } = this.props;
     if (isFetching) {
       return (
         <View style={styles.loadingContainer}>
+          {this.renderNavigationEvents()}
           <Text>Loading</Text>
         </View>
       );
@@ -65,6 +76,7 @@ class BookingList extends Component {
 
     return (
       <View style={styles.container}>
+        {this.renderNavigationEvents()}
         <SectionList
           sections={sections}
           keyExtractor={(item) => item.id}
@@ -80,6 +92,7 @@ BookingList.propTypes = {
   fetchBookings: PropTypes.func.isRequired,
   status: PropTypes.number.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  setCurrentStatus: PropTypes.func.isRequired,
   filters: PropTypes.shape({
     range_from: PropTypes.string,
     range_to: PropTypes.string,
@@ -105,9 +118,5 @@ BookingList.propTypes = {
     }),
   })).isRequired,
 };
-
-
-
-
 
 export default withNavigation(BookingList);

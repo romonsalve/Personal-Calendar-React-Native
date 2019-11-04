@@ -13,12 +13,20 @@ const es_CL = {
       status: 'Estado',
     },
     status: {
-      1: 'Reservado',
-      2: 'Confirmado',
+      1: 'Reservada',
+      2: 'Confirmada',
       3: 'Asiste',
       6: 'No asiste',
       7: 'Pendiente',
       8: 'Esperando',
+    },
+    status_plural: {
+      1: 'reservadas',
+      2: 'confirmadas',
+      3: 'a las que asisten',
+      6: 'a las que no asisten',
+      7: 'pendientes',
+      8: 'esperando',
     },
   },
   commons: {
@@ -33,6 +41,8 @@ const es_CL = {
     start: 'Desde',
     end: 'Hasta',
     date: 'Fecha de la cita',
+    noFilterText: (count, status ) => `Tienes ${count} citas ${status} desde Hoy hasta un Mes`,
+    withFilterText: (count, status, startDate, endDate) => `Tienes ${count} citas ${status} desde ${startDate} hasta ${endDate}`,
   },
   screens: {
     bookingDetail: {
