@@ -5,8 +5,8 @@ import { Spacing, Colors } from '../styles';
 
 const styles = StyleSheet.create({
   container: {
-    padding: Spacing.extraSmall,
-    backgroundColor: Colors.blue,
+    padding: Spacing.small,
+    backgroundColor: Colors.greyLight,
   },
 });
 

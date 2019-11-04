@@ -1,21 +1,27 @@
 import {
-  Text, View, SectionList, StyleSheet,
+  Text, View, SectionList, StyleSheet, ActivityIndicator,
 } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import 'moment/locale/es';
 import { withNavigation, NavigationEvents } from 'react-navigation';
 import DateHeader from './DateHeader';
 import BookingItemContainer from './BookingItemContainer';
+import { Colors } from '../styles';
+import es_CL from '../i18n/es-CL';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  loadingContainer: {
+  centeredContainer: {
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
+  },
+  no_booking: {
+    textAlign: 'center',
   },
 });
 
@@ -39,7 +45,6 @@ class BookingList extends Component {
     const bookingsGrouped = {};
 
     const bookingsSorted = bookings.sort((a, b) => new Date(a.start) > new Date(b.start));
-
     bookingsSorted.forEach((booking) => {
       const groupKey = moment(booking.start).format('ddd D MMMM YYYY');
       if (!Array.isArray(bookingsGrouped[groupKey])) { bookingsGrouped[groupKey] = []; }
@@ -65,9 +70,19 @@ class BookingList extends Component {
     const { isFetching } = this.props;
     if (isFetching) {
       return (
-        <View style={styles.loadingContainer}>
+        <View style={styles.centeredContainer}>
           {this.renderNavigationEvents()}
-          <Text>Loading</Text>
+          <ActivityIndicator size="large" color={Colors.blue} />
+        </View>
+      );
+    }
+
+    const { bookings } = this.props;
+    if (!Object.keys(bookings).length) {
+      return (
+        <View style={styles.centeredContainer}>
+          {this.renderNavigationEvents()}
+          <Text style={styles.no_booking}>{es_CL.booking.no_bookings}</Text>
         </View>
       );
     }

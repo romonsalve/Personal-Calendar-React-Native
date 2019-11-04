@@ -28,6 +28,7 @@ const es_CL = {
       7: 'pendientes',
       8: 'esperando',
     },
+    no_bookings: 'No tienes citas en estas fechas',
   },
   commons: {
     edit: 'Editar',

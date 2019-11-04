@@ -1,6 +1,7 @@
 import React from 'react';
 import BookingListContainer from '../components/BookingListContainer';
 import { RESERVED } from '../constants/status';
+import { BookingScreenNavOptions } from '../utils/helpers';
 
 function ReservedBookingScreen() {
   return (
@@ -8,8 +9,6 @@ function ReservedBookingScreen() {
   );
 }
 
-ReservedBookingScreen.navigationOptions = ({ navigation }) => ({
-  header: null,
-});
+ReservedBookingScreen.navigationOptions = BookingScreenNavOptions;
 
 export default ReservedBookingScreen;

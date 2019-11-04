@@ -1,9 +1,14 @@
 import React from 'react';
 import BookingListContainer from '../components/BookingListContainer';
 import { WAITING } from '../constants/status';
+import { BookingScreenNavOptions } from '../utils/helpers';
 
-export default function WaitingBookingScreen() {
+function WaitingBookingScreen() {
   return (
     <BookingListContainer status={WAITING} />
   );
 }
+
+WaitingBookingScreen.navigationOptions = BookingScreenNavOptions;
+
+export default WaitingBookingScreen;

@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+    borderColor: Colors.greyLight,
+    borderTopWidth: 1,
   },
   timeContainer: {
     flex: 1,
