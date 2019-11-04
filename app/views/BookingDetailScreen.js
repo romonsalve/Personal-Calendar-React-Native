@@ -7,6 +7,7 @@ import { withNavigation } from 'react-navigation';
 import { Spacing, Colors } from '../styles';
 import es_CL from '../i18n/es-CL';
 import DetailBackButtonContainer from '../components/DetailBackButton';
+import { timeFormat, readableTimeFormat } from '../constants/date_formats';
 
 const styles = StyleSheet.create({
   container: {
@@ -73,8 +74,8 @@ function renderCancelAlert({ booking, navigation, cancelBooking }) {
 
 function BookingDetailScreen(props) {
   const { booking } = props;
-  const formatDate = 'dddd, D MMMM YYYY';
-  const formatTime = 'HH:DD';
+  const formatDate = readableTimeFormat;
+  const formatTime = timeFormat;
   const price = `$${booking.price}`;
   const start = moment(booking.start).format(formatTime);
   const end = moment(booking.end).format(formatTime);

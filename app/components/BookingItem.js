@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Spacing, Colors } from '../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
+import { Spacing, Colors } from '../styles';
+import { timeFormat } from '../constants/date_formats';
 
 
 const styles = StyleSheet.create({
@@ -41,8 +42,8 @@ function BookingItem(props) {
   return (
     <TouchableOpacity style={styles.container} onPress={() => handleItemPress(props)}>
       <View style={styles.timeContainer}>
-        <Text>{moment(start).format('HH:mm')}</Text>
-        <Text>{moment(end).format('HH:mm')}</Text>
+        <Text>{moment(start).format(timeFormat)}</Text>
+        <Text>{moment(end).format(timeFormat)}</Text>
       </View>
       <View style={styles.infoContainer}>
         <Text>{service}</Text>
