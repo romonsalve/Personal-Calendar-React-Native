@@ -41,7 +41,7 @@ const es_CL = {
     start: 'Desde',
     end: 'Hasta',
     date: 'Fecha de la cita',
-    noFilterText: (count, status ) => `Tienes ${count} citas ${status} desde Hoy hasta un Mes`,
+    noFilterText: (count, status) => `Tienes ${count} citas ${status} desde Hoy hasta un Mes`,
     withFilterText: (count, status, startDate, endDate) => `Tienes ${count} citas ${status} desde ${startDate} hasta ${endDate}`,
   },
   screens: {
@@ -50,6 +50,24 @@ const es_CL = {
     },
     bookingEdit: {
       headerTitle: 'Editar cita',
+    },
+    Reserved: {
+      tabBarLabel: 'Reservada',
+    },
+    Confirmed: {
+      tabBarLabel: 'Confirmada',
+    },
+    Attended: {
+      tabBarLabel: 'Asiste',
+    },
+    Skipped: {
+      tabBarLabel: 'No asiste',
+    },
+    Pending: {
+      tabBarLabel: 'Pendiente',
+    },
+    Waiting: {
+      tabBarLabel: 'Esperando',
     },
   },
 };
