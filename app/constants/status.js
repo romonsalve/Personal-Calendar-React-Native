@@ -5,6 +5,10 @@ export const SKIPPED = 6;
 export const PENDING = 7;
 export const WAITING = 8;
 
+export const STATUS_ARRAY = [
+  RESERVED, CONFIRMED, ATTENDED, SKIPPED, PENDING, WAITING,
+];
+
 export const STATUS_TEXT = {
   1: 'Reservado',
   2: 'Confirmado',

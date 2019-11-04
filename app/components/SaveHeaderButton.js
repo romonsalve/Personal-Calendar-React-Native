@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { connect } from 'react-redux';
-import { updateBooking } from '../actions/actions';
+import { updateBooking } from '../actions/bookings_actions';
 import esCL from '../i18n/es-CL';
 
 

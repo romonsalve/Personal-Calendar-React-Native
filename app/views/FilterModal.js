@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import {
   Modal, Text, Button, StyleSheet, View, Platform, DatePickerIOS, DatePickerAndroid,
 } from 'react-native';
+import moment from 'moment';
 import { applyFilters, resetFilters, hideFilters } from '../actions/filters_actions';
 import es_CL from '../i18n/es-CL';
 import { Spacing } from '../styles';
 import SelectorWithIcon from '../components/SelectorWithIcon';
-import moment from 'moment';
 import { filterParseFormat, dateDisplay } from '../constants/date_formats';
 
 const styles = StyleSheet.create({
@@ -54,9 +54,6 @@ class FilterModal extends Component {
 
   renderDatePicker(dateState, showState) {
     if (!this.state[showState]) return null;
-    console.log('dateState', this.state.filters[dateState].toDate());
-    console.log('filters', this.state.filters);
-
     const filterDate = this.state.filters[dateState].toDate();
 
 
@@ -66,6 +63,7 @@ class FilterModal extends Component {
           date={filterDate}
           onDateChange={(date) => this.setDate(date, dateState, showState)}
           mode="date"
+          locale={'es'}
         />
       );
     }
@@ -76,15 +74,14 @@ class FilterModal extends Component {
         const selectedDate = moment(`${year}-${month}-${day}`, filterParseFormat).toDate();
         this.setDate(selectedDate, dateState, showState);
       });
+    
+    return null;
   }
 
   render() {
     const { filters, showRangeFrom, showRangeTo } = this.state;
     const { rangeFrom, rangeTo } = filters;
     const { handleApplyPress, handleResetPress, handleBackPress, visible } = this.props;
-
-    console.log('rangeFrom', rangeFrom);
-    console.log('rangeTo', rangeTo);
 
     return (
       <Modal
@@ -126,7 +123,7 @@ class FilterModal extends Component {
         <View style={styles.buttonsContainer}>
           <Button
             title={es_CL.filters.apply}
-            onPress={() => handleApplyPress()}
+            onPress={() => handleApplyPress(filters)}
             style={styles.container}
           />
           <Button
@@ -152,7 +149,7 @@ function mapStateToProps({ filters }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleApplyPress: () => { dispatch(applyFilters()); },
+    handleApplyPress: (filters) => { dispatch(applyFilters(filters)); },
     handleResetPress: () => { dispatch(resetFilters()); },
     handleBackPress: () => { dispatch(hideFilters()); },
   };

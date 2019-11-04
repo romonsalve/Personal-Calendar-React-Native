@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { cancelBooking } from '../actions/actions';
+import { cancelBooking } from '../actions/bookings_actions';
 import BookingDetailScreen from './BookingDetailScreen';
 
 function mapStateToProps(state) {

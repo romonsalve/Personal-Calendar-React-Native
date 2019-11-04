@@ -4,8 +4,9 @@ const username = '4fjf146';
 const password = '6hcah19dgu9vu48m7nxqgrmb4wt9twl7xjhinhdm216l0';
 const baseUrl = 'https://bambucalendar.cl/api/public/v1/clients/69196/bookings';
 
-function getBookingsUrl(status) {
-  return `${baseUrl}?status_id=${status}`;
+function getBookingsUrl(status, filters) {
+  const queryParams = Object.keys(filters).map((filter) => `${filter}=${filters[filter]}`).join('&');
+  return `${baseUrl}?status_id=${status}&${queryParams}`;
 }
 
 function bookingByIdURL(id) {
@@ -19,8 +20,8 @@ function headers() {
   return h;
 }
 
-export function getBookings(status) {
-  return fetch(getBookingsUrl(status), { method: 'GET', headers: headers() });
+export function getBookings(status, filters) {
+  return fetch(getBookingsUrl(status, filters), { method: 'GET', headers: headers() });
 }
 
 export function deleteBooking(bookingId) {

@@ -1,3 +1,3 @@
-export const filterDisplayFormat = 'YYYY-MM-d';
+export const filterDisplayFormat = 'YYYY-MM-DD';
 export const filterParseFormat = 'YYYY-MM-DD';
-export const dateDisplay = 'd/MM/YYY';
+export const dateDisplay = 'DD/MM/YYYY';

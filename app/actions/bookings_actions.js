@@ -1,6 +1,5 @@
 import { getBookings, deleteBooking, patchBooking } from '../utils/requests';
 
-export const SET_STATUS = 'SET_STATUS';
 export const REQUEST_BOOKINGS = 'REQUEST_BOOKINGS';
 export const RECEIVE_BOOKINGS = 'RECEIVE_POSTS';
 export const REMOVE_BOOKING = 'REMOVE_BOOKING';
@@ -8,14 +7,6 @@ export const CHANGE_BOOKING_STATUS = 'CHANGE_BOOKING_STATUS';
 export const SELECT_BOOKING = 'SELECT_BOOKING';
 export const UPDATE_BOOKING_PROTERTY = 'UPDATE_BOOKING_PROTERTY';
 export const ADD_BOOKING = 'ADD_BOOKING';
-
-
-export function setStatus(status) {
-  return {
-    type: SET_STATUS,
-    status,
-  };
-}
 
 export function requestBookings(status) {
   return {
@@ -73,11 +64,11 @@ export function updateBookingProperty(property, value) {
   };
 }
 
-export function fetchBookings(status) {
+export function fetchBookings(status, filters) {
   return (dispatch) => {
     dispatch(requestBookings(status));
 
-    return getBookings(status)
+    return getBookings(status, filters)
       .then((response) => response.json())
       .then((json) => dispatch(receiveBookings(status, json)));
   };
