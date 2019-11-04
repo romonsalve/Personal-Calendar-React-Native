@@ -47,6 +47,7 @@ const es_CL = {
     date: 'Fecha de la cita',
     noFilterText: (count, status) => `Tienes ${count} citas ${status} desde Hoy hasta un Mes`,
     withFilterText: (count, status, startDate, endDate) => `Tienes ${count} citas ${status} desde ${startDate} hasta ${endDate}`,
+    title: 'Filtros',
   },
   screens: {
     bookingDetail: {

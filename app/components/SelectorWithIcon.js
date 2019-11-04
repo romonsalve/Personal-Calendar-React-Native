@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: Spacing.extraSmall,
     borderBottomWidth: 1,
+    borderTopWidth: 1,
     borderColor: greyLight,
   },
   label: {
