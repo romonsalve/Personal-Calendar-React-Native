@@ -29,6 +29,9 @@ const es_CL = {
       8: 'esperando',
     },
     no_bookings: 'No tienes citas en estas fechas',
+    booking_info: 'Información de la cita',
+    client_info: 'Información del cliente',
+    booking_time: (start, end) => `de ${start} hasta ${end}`,
   },
   commons: {
     edit: 'Editar',
